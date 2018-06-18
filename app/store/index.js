@@ -19,7 +19,7 @@ const createStore = () => {
       import('./modules').then((newModules) => {
         // swap in the new actions and mutations
         store.hotUpdate({
-          modules: newModules,
+          modules: newModules.default,
         });
       });
     });
