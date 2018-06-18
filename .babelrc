@@ -1,0 +1,40 @@
+{
+	"presets": [
+		["env", {
+			"modules": false,
+			"targets": {
+				"node": "current",
+				"browsers": "> 5%"
+			},
+			"useBuiltIns": true
+		}],
+		"stage-2"
+	],
+	"env": {
+		"development": {
+			"plugins": [
+				"tailcall-optimization"
+			],	
+		},
+		"production": {
+			"plugins": [
+				"tailcall-optimization"
+			],
+		},
+		"test": {
+			"presets": [
+				["env", {
+					"targets": {
+						"node": "current",
+						"browsers": "> 5%"
+					},
+					"useBuiltIns": true
+				}], "stage-2"
+			],
+			"plugins": [
+				"tailcall-optimization",
+				"add-module-exports"
+			]
+		}
+	}
+}
