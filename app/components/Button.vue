@@ -1,19 +1,19 @@
 <template>
   <button @click.prevent="action">
-    <slot />
+    <slot /> <!--@slot Default for any children passed.-->
   </button>
 </template>
 
 <script>
 import { identity } from 'ramda';
+import VueTypes from 'vue-types';
 
 export default {
   props: {
-    action: {
-      type: Function,
-      default: identity,
-      required: true,
-    },
+    /**
+     * A function that gets called with the click event.
+     */
+    action: VueTypes.func.def(identity).isRequired,
   },
 };
 </script>
@@ -22,6 +22,11 @@ export default {
 <style lang="scss" scoped>
 @import "../variables";
 
+// A button that changes color when hovered over.
+//
+// :hover     - Reverse foreground and background colors
+//
+// Styleguide app
 button {
   background: $buttonForegroundColor;
   border: 1px solid $buttonBackgroundColor;

@@ -21,9 +21,17 @@ export default {
       addSample: 'samples/addSample',
       reset: 'samples/reset',
     }),
+    /**
+     * Event handler for triggering a reset.
+     * @public
+     */
     resetEvent() {
       this.reset();
     },
+    /**
+     * Event handler for requesting a new sample to be added.
+     * @public
+     */
     addSampleEvent() {
       this.addSample();
     },

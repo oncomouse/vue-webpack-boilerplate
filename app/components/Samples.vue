@@ -10,23 +10,31 @@
 </template>
 
 <script>
-import { always } from 'ramda';
+import VueTypes from 'vue-types';
 
 export default {
   name: 'SampleView',
   props: {
-    samples: {
-      type: Array,
-      default: always([]),
-    },
+    /**
+     * An array of strings to display:
+     */
+    samples: VueTypes.arrayOf(String).isRequired,
   },
   methods: {
+    /**
+     * Generate a key for template iteration.
+     * @param {string} key
+     * @public
+     */
     makeKey: key => `${key}-${Math.random()}`,
   },
 };
 </script>
 
 <style lang="scss" scoped>
+  // A simple list item, with no list stylings.
+  //
+  // Styleguide app
   .list {
     list-style: none;
   }
