@@ -1,17 +1,25 @@
 <template>
   <ul class="list">
-    <li v-for="sample in samples" v-bind:key="makeKey(sample)">
-      {{sample}}
+    <li
+      v-for="sample in samples"
+      :key="makeKey(sample)"
+    >
+      {{ sample }}
     </li>
   </ul>
 </template>
 
 <script>
-import { map } from 'ramda';
+import { always } from 'ramda';
 
 export default {
   name: 'SampleView',
-  props: ['samples'],
+  props: {
+    samples: {
+      type: Array,
+      default: always([]),
+    },
+  },
   methods: {
     makeKey: key => `${key}-${Math.random()}`,
   },

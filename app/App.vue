@@ -12,11 +12,11 @@ export default {
 
 <style lang="scss">
   @import "normalize-scss";
-  
+
   @include normalize();
-  
+
   @import "variables";
-  
+
   html {
     font-family: $base-font;
   }

@@ -3,6 +3,7 @@ module.exports = {
     "stylelint-scss",
     "stylelint-order"
   ],
+  "processors": ["@mapbox/stylelint-processor-arbitrary-tags"],
   "rules": {
     "no-missing-end-of-source-newline": 2,
     "indentation": 2,
