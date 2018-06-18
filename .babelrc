@@ -8,19 +8,12 @@
 			},
 			"useBuiltIns": true
 		}],
-		"stage-2"
+		"stage-2",
+	],
+	"plugins": [
+		"tailcall-optimization"
 	],
 	"env": {
-		"development": {
-			"plugins": [
-				"tailcall-optimization"
-			],	
-		},
-		"production": {
-			"plugins": [
-				"tailcall-optimization"
-			],
-		},
 		"test": {
 			"presets": [
 				["env", {
