@@ -5,28 +5,14 @@
 </template>
 
 <script>
+/**
+ * Define the App component, which hooks router-view to a global stylesheet.
+ * In most situations, do not edit these <script> or <template> tags.
+ */
+import './global.scss';
+
 export default {
   name: 'App',
 };
+
 </script>
-
-<style lang="scss">
-  @import "normalize-scss";
-
-  @include normalize();
-
-  @import "variables";
-
-  html {
-    font-family: $base-font;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: $header-font;
-  }
-</style>

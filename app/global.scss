@@ -1,0 +1,27 @@
+/*
+  This is the global stylesheet for your app.
+*/
+@import "normalize-scss";
+
+@include normalize();
+
+@import "variables";
+
+// Attaches the $base-font variable to all elements.
+//
+// Styleguide app
+html {
+  font-family: $base-font;
+}
+
+// Attaches the $header-font variable to header elements.
+//
+// Styleguide app
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $header-font;
+}
