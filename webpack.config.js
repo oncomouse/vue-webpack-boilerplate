@@ -8,6 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const noop = require('noop-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const nodeExternals = require('webpack-node-externals');
 // For historyApiFallback:
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
@@ -17,6 +18,8 @@ const packageJSON = JSON.parse(fs.readFileSync(path.join('.', 'package.json')));
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
+const isTest = nodeEnv === 'test' || nodeEnv === 'coverage';
+// const isCover = nodeEnv === 'coverage';
 
 // Extract PUBLIC_URL from either CLI or package.json:
 const PUBLIC_URL = process.env.PUBLIC_URL || (
@@ -51,9 +54,17 @@ const webpackConfig = {
     filename: isProd ? 'bundle.[hash].js' : 'bundle.js',
     publicPath,
     libraryTarget: isProd ? 'umd' : 'var',
+    // use absolute paths in sourcemaps (important for debugging via IDE)
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+    devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]',
   },
   module: {
     rules: [
+      isTest ? {
+        test: /\.js$/,
+        include: path.resolve('./app'),
+        use: 'istanbul-instrumenter-loader',
+      } : {},
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -69,7 +80,12 @@ const webpackConfig = {
       {
         test: /\.vue/,
         exclude: /node_modules/,
-        use: 'vue-loader',
+        use: {
+          loader: 'vue-loader',
+          options: {
+            optimizeSSR: false,
+          },
+        },
       }, /*
         CSS loader for the module files (in
         app/stylesheets/components). These are intended to be
@@ -266,6 +282,10 @@ const webpackConfig = {
       app.use(convert(history({})));
     },
   },
+  externals: isTest ? [nodeExternals({
+    whitelist: ['vue'],
+  })] : [],
+  target: isTest ? 'node' : 'web',
 };
 
 module.exports = webpackConfig;

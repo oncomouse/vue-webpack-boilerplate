@@ -1,23 +1,23 @@
 {
-  "name": "react-redux-webpack-starter",
+  "name": "vue-webpack-boilerplate",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oncomouse/react-redux-webpack-starter.git"
+    "url": "https://github.com/oncomouse/vue-webpack-boilerplate.git"
   },
   "main": "app/index.jsx",
   "title": "My Vue App",
-  "homepage": "https://oncomouse.github.io/react-redux-app/",
+  "homepage": "https://oncomouse.github.io/vue-app/",
   "scripts": {
     "start": "webpack-serve --config=webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack",
     "lint": "npm-run-all \"lint:* -- {@}\" --",
     "lint:js": "eslint --ext js,vue app/",
     "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.vue\" --syntax scss --cache --cache-location \"./.stylelintcache\"",
-    "cover": "cross-env BABEL_ENV=test NODE_ENV=coverage nyc -r text -r lcov npm-run-all mocha",
+    "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm-run-all mocha",
     "mocha:watch": "npm-run-all \"mocha -- --watch\"",
-    "mocha": "mocha-webpack",
+    "mocha": "cross-env NODE_ENV=test mocha-webpack",
     "test": "npm-run-all lint mocha"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
@@ -62,12 +62,13 @@
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
+    "@vue/test-utils": "^1.0.0-beta.19",
     "babel-eslint": "^7.2.3",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.1.6",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "connect-history-api-fallback": "^1.5.0",
-    "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-chai-friendly": "^0.4.1",
@@ -82,8 +83,9 @@
     "mocha": "^5.2.0",
     "mocha-webpack": "^2.0.0-beta.0",
     "npm-run-all": "^4.1.3",
-    "nyc": "^11.8.0",
+    "nyc": "^12.0.2",
     "postcss-syntax": "^0.26.1",
+    "request": "^2.87.0",
     "sinon": "^5.0.10",
     "sinon-chai": "^3.1.0",
     "stylelint": "^9.2.1",
@@ -101,7 +103,6 @@
     ],
     "exclude": [
       "**/*.spec.js",
-      "**/*.spec.vue",
       "build"
     ],
     "instrument": false,

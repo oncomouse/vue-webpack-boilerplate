@@ -5,7 +5,7 @@ Vue.use(Router);
 
 export default function createRouter() {
   return new Router({
-    mode: 'history',
+    mode: 'hash',
     routes: [
       { path: '/', component: () => import('../pages/Home.vue') },
     ],

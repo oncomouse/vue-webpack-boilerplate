@@ -16,7 +16,10 @@
 	},
 	"globals": {
 		"process": false,
-		"APP_TITLE": false
+		"APP_TITLE": false,
+		"expect": true,
+		"should": true,
+		"assert": true
 	},
 	"plugins": [
 		"chai-friendly"
