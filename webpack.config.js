@@ -276,7 +276,7 @@ const webpackConfig = {
   },
   serve: {
     content: './app',
-    hot: !isProd && !isTest,
+    hot: true,
     // For historyApiFallback:
     add: (app) => {
       app.use(convert(history({})));
