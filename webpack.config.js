@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const noop = require('noop-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const nodeExternals = require('webpack-node-externals');
@@ -186,7 +188,16 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    // Use a static directory:
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve('./assets'),
+        to: 'assets',
+      },
+    ]),
+    // Vue Loader requires this:
     new VueLoaderPlugin(),
+    // Make CSS files instead of including in JS:
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -196,6 +207,7 @@ const webpackConfig = {
     // Build the HTML file without having to include it in the app:
     new HtmlWebpackPlugin({
       title: APP_TITLE,
+      publicPath,
       template: path.join('.', 'app', 'template', 'index.html'),
       chunksSortMode: 'dependency',
       minify: {
@@ -230,6 +242,7 @@ const webpackConfig = {
     // Optimization & Build Plugins:
     isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop(),
     isProd ? new webpack.optimize.OccurrenceOrderPlugin() : noop(),
+    new CleanWebpackPlugin(['build']),
   ],
   // Recommended Webpack optimizations:,
   optimization: {
