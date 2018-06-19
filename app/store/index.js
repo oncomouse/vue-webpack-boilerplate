@@ -1,15 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import createLogger from 'vuex/dist/logger';
 import modules from './modules';
 
 Vue.use(Vuex);
 
+const isNotProd = process.env.NODE_ENV !== 'production';
+const isNotTest = process.env.NODE_ENV !== 'test';
+
 const createStore = () => {
   const store = new Vuex.Store({
     modules,
-    strict: process.env.NODE_ENV !== 'production',
-    plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
+    strict: isNotProd,
+    plugins: []
+      .concat(isNotTest ? [createPersistedState({ key: APP_TITLE })] : [])
+      .concat(isNotProd ? [createLogger()] : []),
   });
   /* istanbul ignore next */
   if (module.hot) {
