@@ -1,7 +1,8 @@
-import Vue from 'vue';
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import { always, times } from 'ramda';
 import Samples from '../../../../app/components/Samples.vue';
+
+const localVue = createLocalVue();
 
 describe('Samples.vue', () => {
   let wrapper;
@@ -20,7 +21,7 @@ describe('Samples.vue', () => {
     wrapper.setProps({
       samples,
     });
-    return Vue.nextTick()
+    return localVue.nextTick()
       .then(() => {
         expect(wrapper.findAll('li')).to.have.lengthOf(samples.length);
       });

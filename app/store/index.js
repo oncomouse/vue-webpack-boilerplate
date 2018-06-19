@@ -11,6 +11,7 @@ const createStore = () => {
     strict: process.env.NODE_ENV !== 'production',
     plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
   });
+  /* istanbul ignore next */
   if (module.hot) {
   // accept actions and mutations as hot modules
     module.hot.accept(['./modules'], () => {
