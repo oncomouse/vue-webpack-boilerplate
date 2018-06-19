@@ -1,9 +1,9 @@
 import Vuex from 'vuex';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
-import module, { ADD_SAMPLE_DONE, ERROR, RESET } from '../../../../../app/store/modules/samples';
-import post from '../../../../fixtures/post.json';
-import { API_URL } from '../../../../../app/api/config';
+import module, { ADD_SAMPLE_DONE, ERROR, RESET } from 'APP/store/modules/samples';
+import post from 'TEST/fixtures/post.json';
+import { API_URL } from 'APP/api/config';
 
 const store = new Vuex.Store({
   modules: {

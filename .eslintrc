@@ -35,7 +35,7 @@
 		"import/extensions": [
 			"error", "always", {
 				"js": "never",
-				"vue": "never"
+				"vue": "always"
 			}
 		],
 		"no-param-reassign": ["error", {
@@ -49,12 +49,11 @@
 	},
 	"settings": {
 		"import/extensions": [
-			"js",
-			"vue"
+			"js"
 		],
 		"import/resolver": {
 			"webpack": {
-				"config": "./webpack.config.js"
+				"config": "webpack.config.js"
 			}
 		}
 	}

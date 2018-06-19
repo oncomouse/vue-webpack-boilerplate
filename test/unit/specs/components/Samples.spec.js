@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import { always, times } from 'ramda';
-import Samples from '../../../../app/components/Samples.vue';
+import Samples from 'APP/components/Samples.vue';
 
 const localVue = createLocalVue();
 

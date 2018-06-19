@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import Home from '../../../../app/pages/Home.vue';
+import Home from 'APP/pages/Home.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

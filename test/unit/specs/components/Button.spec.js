@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import sinon from 'sinon';
-import Button from '../../../../app/components/Button.vue';
+import Button from 'APP/components/Button.vue';
 
 describe('Button.vue', () => {
   let wrapper;

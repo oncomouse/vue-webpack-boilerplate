@@ -268,6 +268,8 @@ const webpackConfig = {
     extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
+      APP: path.resolve('./app/'),
+      TEST: path.resolve('./test/'),
     },
     modules: [
       path.resolve('./app/'),
