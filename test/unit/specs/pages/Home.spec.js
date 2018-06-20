@@ -8,26 +8,32 @@ localVue.use(Vuex);
 
 describe('Home.vue', () => {
   let wrapper;
-  let store;
-  let actions;
-  let state;
-  beforeEach(() => {
-    actions = {
-      addSample: sinon.spy(),
-      reset: sinon.spy(),
-    };
-    state = {
-      samples: [],
-    };
-    store = new Vuex.Store({
-      modules: {
-        samples: {
-          state,
-          actions,
-          namespaced: true,
+  const initialState = {
+    samples: [],
+    errors: [],
+  };
+  const addSample = sinon.spy();
+  const reset = sinon.spy();
+  const store = new Vuex.Store({
+    modules: {
+      samples: {
+        state: { ...initialState },
+        actions: {
+          addSample,
+          reset,
         },
+        namespaced: true,
       },
-    });
+    },
+  });
+  afterEach(() => {
+    // Reset spies:
+    reset.resetHistory();
+    addSample.resetHistory();
+    // Reset state:
+    store.state.samples = { ...initialState };
+  });
+  beforeEach(() => {
     wrapper = shallowMount(Home, { store, localVue });
   });
   // We need to test our event listeners (even though they just wrap other
@@ -36,14 +42,14 @@ describe('Home.vue', () => {
     wrapper.vm.addSampleEvent();
     return localVue.nextTick()
       .then(() => {
-        expect(actions.addSample).to.be.calledOnce;
+        expect(addSample).to.be.calledOnce;
       });
   });
   it('should trigger reset() when second <button/> is clicked', () => {
     wrapper.vm.resetEvent();
     return localVue.nextTick()
       .then(() => {
-        expect(actions.reset).to.be.calledOnce;
+        expect(reset).to.be.calledOnce;
       });
   });
 });
