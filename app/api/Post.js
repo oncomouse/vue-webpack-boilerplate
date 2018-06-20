@@ -2,7 +2,7 @@ import { normalize, schema } from 'normalizr';
 import request from './utilities/request';
 import { API_URL } from '../api/config';
 
-const POSTS_PER_PAGE = 10;
+// const POSTS_PER_PAGE = 10;
 
 const user = new schema.Entity('users');
 
@@ -19,7 +19,7 @@ class Api {
     static get = id =>
       request(`${API_URL}/posts/${id}?_embed=comments&_expand=user`)
         .then(json => normalize(json, post));
-    static post = article =>
+  /* static post = article =>
       request(`${API_URL}/posts/`, {
         method: 'post',
         body: JSON.stringify(article),
@@ -32,10 +32,7 @@ class Api {
     static delete = id =>
       request(`${API_URL}/posts/${id}`, {
         method: 'delete',
-      });
-    static getPage = num =>
-      request(`${API_URL}/posts/?_page=${num}&_num=${POSTS_PER_PAGE}&_sort=id&_order=DESC&_embed=comments&_expand=user`)
-        .then(json => normalize(json, [post]));
+      }); */
 }
 
 export default Api;

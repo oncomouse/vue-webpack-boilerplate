@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import Home from 'APP/pages/Home.vue';
@@ -28,17 +28,19 @@ describe('Home.vue', () => {
         },
       },
     });
-    wrapper = mount(Home, { store, localVue });
+    wrapper = shallowMount(Home, { store, localVue });
   });
+  // We need to test our event listeners (even though they just wrap other
+  // functions) for code coverage purposes.
   it('should trigger addSample() when first <button/> is clicked', () => {
-    wrapper.findAll('button').at(0).trigger('click');
+    wrapper.vm.addSampleEvent();
     return localVue.nextTick()
       .then(() => {
         expect(actions.addSample).to.be.calledOnce;
       });
   });
   it('should trigger reset() when second <button/> is clicked', () => {
-    wrapper.findAll('button').at(1).trigger('click');
+    wrapper.vm.resetEvent();
     return localVue.nextTick()
       .then(() => {
         expect(actions.reset).to.be.calledOnce;
