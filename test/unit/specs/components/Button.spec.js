@@ -4,8 +4,10 @@ import Button from 'APP/components/Button.vue';
 
 describe('Button.vue', () => {
   let wrapper;
+  // Create a spy for a button action:
   const action = sinon.spy();
   beforeEach(() => {
+    // Re-render the button each test:
     wrapper = shallowMount(Button, {
       propsData: {
         action,
@@ -16,6 +18,7 @@ describe('Button.vue', () => {
     });
   });
   afterEach(() => {
+    // Reset button action's history each test:
     action.resetHistory();
   });
   it('should render a button', () => {

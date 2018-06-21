@@ -5,10 +5,14 @@ import module, { ADD_SAMPLE_DONE, ERROR, RESET } from 'APP/store/modules/samples
 import post from 'TEST/fixtures/post.json';
 import { API_URL } from 'APP/api/config';
 
+// We end up accessing store.state.samples a lot in these tests. It seemed like a good idea to DRY
+// it with a single method here. This way, if namespace changes for any reason, it's one line to
+// fix:
 const NAME_SPACE = 'samples';
 const addNameSpace = thing => `${NAME_SPACE}/${thing}`;
 
 describe('store/modules/samples', () => {
+  // Generate our store:
   const store = new Vuex.Store({
     modules: {
       [NAME_SPACE]: module,
@@ -30,17 +34,27 @@ describe('store/modules/samples', () => {
     expect(store.state[NAME_SPACE].errors).to.have.lengthOf(0);
   });
   // Action tests:
+  // First, we want to test that all of our actions are calling commit with the correct parameters.
+  // In each test, we stub store.commit(), so that the store does not actually update. Then, we
+  // check that commit was called with the expected parameters. We will test the mutations
+  // themselves later.
+  //
+  // This may seem excessive, but given that some our actions may produce side-effects, we want to
+  // make sure that those side effects are working properly.
   it('should commit ADD_SAMPLE_DONE when running actions.addSample', () => {
     fetchMock.mock(new RegExp(`${API_URL}/posts/[0-9]+.*$`), JSON.stringify(post), { method: 'get' });
     // Stub commit() so that mutations are not triggered:
     sinon.stub(store, 'commit');
 
+    // Dispatch our action:
     return store.dispatch(addNameSpace('addSample'))
       .then(() => {
         expect(store.commit).to.be.calledOnce;
+        // Does the first argument match the symbol we defined + the namespace:
         expect(store.commit.getCall(0).args[0]).to.equal(addNameSpace(ADD_SAMPLE_DONE));
         expect(store.commit.getCall(0).args[1]).to.equal(post.title);
 
+        // Restore the stubbed commit method:
         store.commit.restore();
       });
   });
@@ -53,8 +67,10 @@ describe('store/modules/samples', () => {
     return store.dispatch(addNameSpace('addSample'))
       .then(() => {
         expect(store.commit).to.be.calledOnce;
+        // Does the first argument match the symbol we defined + the namespace:
         expect(store.commit.getCall(0).args[0]).to.equal(addNameSpace(ERROR));
 
+        // Restore the stubbed commit method:
         store.commit.restore();
       });
   });
@@ -64,26 +80,36 @@ describe('store/modules/samples', () => {
 
     store.dispatch(addNameSpace('reset'));
     expect(store.commit).to.be.calledOnce;
+    // Does the first argument match the symbol we defined + the namespace:
     expect(store.commit.getCall(0).args[0]).to.equal(addNameSpace(RESET));
 
+    // Restore the stubbed commit method:
     store.commit.restore();
   });
   // Mutation tests:
+  // After we tested that our actions are calling commit with the correct data, we now test that
+  // commit actually updates the store in the way we expect it to.
   it('should add one element to state.samples.samples when mutations[ADD_SAMPLE_DONE] is called.', () => {
     store.commit(addNameSpace(ADD_SAMPLE_DONE), post.title);
     expect(store.state.samples.samples).to.have.lengthOf(1);
+    expect(store.state.samples.samples[0]).to.equal(post.title);
   });
   it('should reset element to state.samples.samples when mutations[RESET] is called.', () => {
+    // Add some test data:
     store.state[NAME_SPACE].samples = [
       post.title,
       post.title,
       post.title,
     ];
+    // Trigger a RESET commit:
     store.commit(addNameSpace(RESET));
-    expect(store.state.samples.samples).to.have.lengthOf(0);
+    // State should now be empty:
+    expect(store.state[NAME_SPACE].samples).to.have.lengthOf(0);
   });
   it('should add one element to state.samples.errors when mutations[ERROR] is called.', () => {
-    store.commit(addNameSpace(ERROR), { message: 'Test Message' });
-    expect(store.state.samples.errors).to.have.lengthOf(1);
+    const testError = { message: 'Test Message' };
+    store.commit(addNameSpace(ERROR), testError);
+    expect(store.state[NAME_SPACE].errors).to.have.lengthOf(1);
+    expect(store.state[NAME_SPACE].errors[0]).to.deep.equal(testError);
   });
 });
