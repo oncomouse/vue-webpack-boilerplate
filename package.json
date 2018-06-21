@@ -109,6 +109,10 @@
       "**/*.spec.js",
       "build"
     ],
+    "extension": [
+      ".vue",
+      ".js"
+    ],
     "instrument": false,
     "sourceMap": false
   }
