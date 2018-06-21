@@ -79,7 +79,6 @@
     "eslint-plugin-vue": "^4.5.0",
     "eslint-plugin-vue-types": "^0.1.0",
     "fetch-mock": "^6.4.2",
-    "istanbul-instrumenter-loader": "^3.0.1",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
     "karma": "^2.0.3",
