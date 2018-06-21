@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/oncomouse/vue-webpack-boilerplate.git"
   },
-  "main": "app/index.jsx",
+  "main": "app/index.js",
   "title": "My Vue App",
   "homepage": "https://oncomouse.github.io/vue-app/",
   "scripts": {
