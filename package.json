@@ -15,10 +15,9 @@
     "lint": "npm-run-all \"lint:* -- {@}\" --",
     "lint:js": "eslint --ext js,vue app/ test/",
     "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.vue\" --syntax scss --cache --cache-location \"./.stylelintcache\"",
-    "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm-run-all mocha",
-    "mocha:watch": "npm-run-all \"mocha -- --watch\"",
-    "mocha": "cross-env NODE_ENV=test mocha-webpack",
-    "test": "npm-run-all lint mocha"
+    "karma:watch": "npm-run-all \"karma -- --single-run=false\"",
+    "karma": "cross-env NODE_ENV=test karma start",
+    "test": "npm-run-all lint karma"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
@@ -83,9 +82,16 @@
     "istanbul-instrumenter-loader": "^3.0.1",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
+    "karma": "^2.0.3",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^1.0.1",
+    "karma-coverage": "^1.1.2",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.0",
     "koa-connect": "^2.0.1",
     "mocha": "^5.2.0",
-    "mocha-webpack": "^2.0.0-beta.0",
     "npm-run-all": "^4.1.3",
     "nyc": "^12.0.2",
     "postcss-syntax": "^0.26.1",
@@ -97,23 +103,6 @@
     "stylelint-scss": "^3.1.0",
     "vue-eslint-parser": "^2.0.3",
     "webpack-cli": "^2.1.4",
-    "webpack-node-externals": "^1.7.2",
     "webpack-serve": "^1.0.4"
-  },
-  "nyc": {
-    "include": [
-      "app/**/*.js",
-      "app/**/*.vue"
-    ],
-    "exclude": [
-      "**/*.spec.js",
-      "build"
-    ],
-    "extension": [
-      ".vue",
-      ".js"
-    ],
-    "instrument": false,
-    "sourceMap": false
   }
 }

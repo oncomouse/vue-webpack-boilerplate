@@ -1,5 +1,0 @@
---webpack-config webpack.config.js
---require test.prepare.js
-app/**/*.js
-app/**/*.vue
-test/**/*.spec.js

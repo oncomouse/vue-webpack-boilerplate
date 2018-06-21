@@ -7,6 +7,10 @@ document.body.insertAdjacentHTML('beforeend', '<div id="root"></div>');
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
+
+const context = require.context('./test', true, /\.spec\.js$/);
+context.keys().forEach(context);
+
 global.expect = chai.expect;
-global.assert = chai.assert;
 global.should = chai.should;
+global.assert = chai.assert;

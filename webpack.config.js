@@ -10,7 +10,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const noop = require('noop-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const nodeExternals = require('webpack-node-externals');
 // For historyApiFallback:
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
@@ -20,8 +19,6 @@ const packageJSON = JSON.parse(fs.readFileSync(path.join('.', 'package.json')));
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
-const isTest = nodeEnv === 'test' || nodeEnv === 'coverage';
-// const isCover = nodeEnv === 'coverage';
 
 // Extract PUBLIC_URL from either CLI or package.json:
 const PUBLIC_URL = process.env.PUBLIC_URL || (
@@ -62,11 +59,6 @@ const webpackConfig = {
   },
   module: {
     rules: [
-      isTest ? {
-        test: /\.js$/,
-        include: path.resolve('./app'),
-        use: 'istanbul-instrumenter-loader',
-      } : {},
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -297,10 +289,6 @@ const webpackConfig = {
       app.use(convert(history({})));
     },
   },
-  externals: isTest ? [nodeExternals({
-    whitelist: ['vue'],
-  })] : [],
-  target: isTest ? 'node' : 'web',
 };
 
 module.exports = webpackConfig;

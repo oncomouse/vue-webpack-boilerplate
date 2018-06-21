@@ -15,18 +15,9 @@
 	],
 	"env": {
 		"test": {
-			"presets": [
-				["env", {
-					"targets": {
-						"node": "current",
-						"browsers": "> 5%"
-					},
-					"useBuiltIns": true
-				}], "stage-2"
-			],
 			"plugins": [
 				"tailcall-optimization",
-				"add-module-exports"
+				"istanbul"
 			]
 		}
 	}
