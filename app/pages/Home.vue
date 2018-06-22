@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SampleView :samples="samples"/>
+    <sample-view :samples="samples"/>
     <Button :action="addSampleEvent">Click Me</Button>
     <Button :action="resetEvent">Reset List</Button>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import SampleView from '../components/Samples.vue';
+import SampleView from '../components/SampleView.vue';
 import Button from '../components/Button.vue';
 
 export default {

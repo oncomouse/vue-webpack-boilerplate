@@ -9,6 +9,7 @@ import { identity } from 'ramda';
 import VueTypes from 'vue-types';
 
 export default {
+  name: 'Button',
   props: {
     /**
      * A function that gets called with the click event.
