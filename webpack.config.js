@@ -42,7 +42,7 @@ const webpackConfig = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd
     ? 'hidden-source-map'
-    : 'cheap-module-source-map',
+    : 'inline-source-map',
   entry: {
     js: [
       'index',
