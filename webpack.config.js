@@ -8,11 +8,15 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const noop = require('noop-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 // For historyApiFallback:
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
+// For waitPage:
+const webpackServeWaitpage = require('webpack-serve-waitpage');
+const chalk = require('chalk');
 
 // Read in package.json:
 const packageJSON = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')));
@@ -180,6 +184,8 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    // Friendly Errors:
+    new FriendlyErrorsWebpackPlugin(),
     // Use a static directory:
     new CopyWebpackPlugin([
       {
@@ -284,9 +290,20 @@ const webpackConfig = {
   serve: {
     content: './app',
     hot: true,
-    // For historyApiFallback:
-    add: (app) => {
+    add: (app, middleware, options) => {
+      // For historyApiFallback:
       app.use(convert(history({})));
+      // For serveWaitPage:
+      app.use(webpackServeWaitpage(options));
+      console.log(
+        chalk.blue('ℹ'),
+        `${chalk.gray('｢serve｣')}: Project is running at`,
+        chalk.blue(`http://${options.host}:${options.port}`),
+      );
+      console.log(
+        chalk.blue('ℹ'),
+        chalk.gray('｢serve｣ : Server URI copied to clipboard'),
+      );
     },
   },
 };

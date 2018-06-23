@@ -13,7 +13,6 @@
 import VueTypes from 'vue-types';
 
 export default {
-  //name: 'SampleView',
   props: {
     /**
      * An array of strings to display:
