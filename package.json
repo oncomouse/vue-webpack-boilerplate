@@ -16,7 +16,7 @@
     "lint:js": "eslint --ext js,vue app/ test/",
     "lint:css": "stylelint \"app/**/*.scss\" \"app/**/*.vue\" --syntax scss --cache --cache-location \"./.stylelintcache\"",
     "karma:watch": "npm-run-all \"karma -- --single-run=false\"",
-    "karma": "cross-env NODE_ENV=test karma start",
+    "karma": "cross-env NODE_ENV=test karma start test/unit/karma.conf.js",
     "test": "npm-run-all lint karma"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",

@@ -1,4 +1,4 @@
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('../../webpack.config.js');
 
 delete webpackConfig.entry;
 
@@ -8,10 +8,10 @@ module.exports = (config) => {
     singleRun: true, // just run once by default
     frameworks: ['mocha'], // use the mocha test framework
     files: [
-      'tests.webpack.js', // just load this file
+      'setup.js', // just load this file
     ],
     preprocessors: {
-      'tests.webpack.js': ['webpack', 'sourcemap'], // preprocess with webpack and our sourcemap loader
+      'setup.js': ['webpack', 'sourcemap'], // preprocess with webpack and our sourcemap loader
     },
     reporters: ['mocha', 'coverage'], // report results in this format; change mocha to dots for shorter output
     webpack: webpackConfig, // attach our webpack configuration
