@@ -234,7 +234,7 @@ const webpackConfig = {
     // Optimization & Build Plugins:
     isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop(),
     isProd ? new webpack.optimize.OccurrenceOrderPlugin() : noop(),
-    new CleanWebpackPlugin(['build']),
+    new CleanWebpackPlugin(['build'], { verbose: false }),
   ],
   // Recommended Webpack optimizations:,
   optimization: {
