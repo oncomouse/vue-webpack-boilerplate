@@ -1,16 +1,16 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { always, times } from 'ramda';
-import Samples from 'APP/components/Samples.vue';
+import SampleView from 'APP/components/SampleView.vue';
 
 // We will be hooking into a Vuex store, so we need to create a local instance of Vue. Do this any
 // time you need to add plugins for a particular test.
 const localVue = createLocalVue();
 
-describe('Samples.vue', () => {
+describe('SampleView.vue', () => {
   let wrapper;
   // Initialize our wrapper for each test.
   beforeEach(() => {
-    wrapper = shallowMount(Samples, {
+    wrapper = shallowMount(SampleView, {
       propsData: {
         samples: [],
       },
