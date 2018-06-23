@@ -295,6 +295,7 @@ const webpackConfig = {
       app.use(convert(history({})));
       // For serveWaitPage:
       app.use(webpackServeWaitpage(options));
+      // For URL status update:
       console.log(
         chalk.blue('ℹ'),
         `${chalk.gray('｢serve｣')}: Project is running at`,
