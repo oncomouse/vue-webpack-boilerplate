@@ -15,7 +15,7 @@ const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
 
 // Read in package.json:
-const packageJSON = JSON.parse(fs.readFileSync(path.join('.', 'package.json')));
+const packageJSON = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')));
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
@@ -49,7 +49,7 @@ const webpackConfig = {
     ],
   },
   output: {
-    path: path.resolve('./build/'),
+    path: path.join(__dirname, 'build'),
     filename: isProd ? 'bundle.[hash].js' : 'bundle.js',
     publicPath,
     libraryTarget: isProd ? 'umd' : 'var',
@@ -183,7 +183,7 @@ const webpackConfig = {
     // Use a static directory:
     new CopyWebpackPlugin([
       {
-        from: path.resolve('./assets'),
+        from: path.join(__dirname, 'assets'),
         to: 'assets',
       },
     ]),
@@ -200,7 +200,7 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       title: APP_TITLE,
       publicPath,
-      template: path.join('.', 'app', 'template', 'index.html'),
+      template: path.join(__dirname, 'app', 'template', 'index.html'),
       chunksSortMode: 'dependency',
       minify: {
         collapseWhitespace: isProd,
@@ -273,12 +273,12 @@ const webpackConfig = {
     extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      APP: path.resolve('./app/'),
-      TEST: path.resolve('./test/'),
+      APP: path.join(__dirname, 'app'),
+      TEST: path.join(__dirname, 'test'),
     },
     modules: [
-      path.resolve('./app/'),
-      path.resolve('./node_modules'),
+      path.join(__dirname, 'app'),
+      path.join(__dirname, 'node_modules'),
     ],
   },
   serve: {
