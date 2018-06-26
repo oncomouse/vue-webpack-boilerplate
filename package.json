@@ -80,6 +80,7 @@
     "eslint-plugin-vue-types": "^0.1.0",
     "fetch-mock": "^6.4.2",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "husky": "^1.0.0-rc.9",
     "karma": "^2.0.3",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^1.0.1",
@@ -104,5 +105,10 @@
     "webpack-cli": "^2.1.4",
     "webpack-serve": "^1.0.4",
     "webpack-serve-waitpage": "^1.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test"
+    }
   }
 }
